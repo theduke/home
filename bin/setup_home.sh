@@ -22,7 +22,7 @@ do
 done
 
 # Link files in ~/.config.
-for FILE in ".config/i3/config" ".config/terminator/config" ".config/gtk-3.0/settings.ini"
+for FILE in ".config/i3/config" ".config/terminator/config" ".config/gtk-3.0/settings.ini" ".config/xmodmap"
 do
   PARENT=$(dirname $FILE)
   if [ ! -d "$HOME/$PARENT" ]; then
