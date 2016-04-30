@@ -24,7 +24,7 @@ for_window [class="^.*"] border pixel 0
 ### System environment ###
 
 # Select random wallpaper from ~/Pictures/Wallpapers
-exec_always feh --no-fehbg --bg-fill $(ls ~/Pictures/Wallpapers | sort -r | head -z -n 1)
+exec_always feh --no-fehbg --bg-fill $(ls -d -1 ~/Pictures/Wallpapers/* | sort -R | head -n 1 | xargs echo -n)
 
 # Start compton composer.
 exec_always compton -f
