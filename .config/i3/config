@@ -1,0 +1,237 @@
+#######################
+### Dukes I3 config ###
+#######################
+
+
+
+### Basic configuration ###
+
+# Set font and font size.
+font pango:System San Francisco Display 9
+# Hide borders on screen edges.
+hide_edge_borders both
+
+## I3-gaps fork related settings ##
+# Gaps in pixels on screen edge.
+gaps outer 1
+# Gaps in pixels between windows.
+gaps inner 10
+# Disable all title bars. Needed for gaps.
+for_window [class="^.*"] border pixel 0
+
+
+
+### System environment ###
+
+# Select random wallpaper from ~/Pictures/Wallpapers
+exec_always feh --no-fehbg --bg-fill $(ls ~/Pictures/Wallpapers | sort -r | head -z -n 1)
+
+# Start compton composer.
+exec_always compton -f
+
+# Load xmodmap mapping to remap caps lock.
+exec_always xmodmap ~/.config/xmodmap
+
+# Launch xfce4-panel.
+exec_always --no-startup-id xfce4-panel --disable-wm-check
+
+# Ensure that the pulseaudio daemon is running.
+exec_always pulseaudio --start
+
+### Key bindings ###
+
+# Modifier key (mod4 = Windows/Super key)
+set $mod Mod4
+
+
+## i3 control
+
+# reload the configuration file
+# bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+## Layout mode switching keys
+
+# split in horizontal orientation
+# b as in "besides"
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+y layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+u layout toggle split
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+
+## Focus
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+# focus the child container
+bindsym $mod+c focus child
+
+# change focus
+# Note: use the vim key bindings instead of the default.
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+
+## Move windows keys
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# kill focused window
+bindsym $mod+q kill
+
+
+## Resizing
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 3 px or 3 ppt
+        bindsym j resize grow height 3 px or 3 ppt
+        bindsym k resize shrink height 3 px or 3 ppt
+        bindsym l resize grow width 3 px or 3 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 3 px or 3 ppt
+        bindsym Down resize grow height 3 px or 3 ppt
+        bindsym Up resize shrink height 3 px or 3 ppt
+        bindsym Right resize grow width 3 px or 3 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+
+### Workspaces ###
+
+set $workspace_terminal "1: Terminal"
+set $workspace_web      "2: Web"
+set $workspace_editor   "3: Editor"
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace_terminal
+bindsym $mod+2 workspace $workspace_web
+bindsym $mod+3 workspace $workspace_editor
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace_terminal
+bindsym $mod+Shift+2 move container to workspace $workspace_web
+bindsym $mod+Shift+3 move container to workspace $workspace_editor
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+
+
+### Applications ###
+
+# Make MOD+N open a new window with the current application.
+bindsym $mod+n exec $(ps -p $(xdotool getactivewindow getwindowpid) -o comm=)
+
+# Start rofi launcher
+bindsym $mod+s exec rofi -show run
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# start browser
+bindsym $mod+w exec google-chrome-stable
+
+
+
+### Bar ###
+
+set $color_00 #101218
+set $color_01 #1f222d
+set $color_02 #252936
+set $color_03 #7780a1
+set $color_04 #C0C5CE
+set $color_05 #d1d4e0
+set $color_06 #C9CCDB
+set $color_07 #ffffff
+set $color_08 #ee829f
+set $color_09 #f99170
+set $color_0A #ffefcc
+set $color_0B #a5ffe1
+set $color_0C #97e0ff
+set $color_0D #97bbf7
+set $color_0E #c0b7f9
+set $color_0F #fcc09e
+
+bar {
+  font pango: System San Francisco Display, FontAwesome 10
+  status_command i3blocks -c ~/.config/i3/i3blocks.conf
+  position bottom
+  #strip_workspace_numbers yes
+  #height 25
+  bindsym button4 nop
+  bindsym button5 nop
+  colors {
+    separator $color_03
+    background $color_01
+    statusline $color_05
+    # border  background text
+    focused_workspace  $color_01 $color_01    $color_07
+    active_workspace   $color_01 $color_02    $color_03
+    inactive_workspace $color_01 $color_01    $color_03
+    urgent_workspace   $color_01 $color_01    $color_08
+  }
+}
+
