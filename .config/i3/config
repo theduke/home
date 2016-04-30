@@ -215,23 +215,4 @@ set $color_0D #97bbf7
 set $color_0E #c0b7f9
 set $color_0F #fcc09e
 
-bar {
-  font pango: System San Francisco Display, FontAwesome 10
-  status_command i3blocks -c ~/.config/i3/i3blocks.conf
-  position bottom
-  #strip_workspace_numbers yes
-  #height 25
-  bindsym button4 nop
-  bindsym button5 nop
-  colors {
-    separator $color_03
-    background $color_01
-    statusline $color_05
-    # border  background text
-    focused_workspace  $color_01 $color_01    $color_07
-    active_workspace   $color_01 $color_02    $color_03
-    inactive_workspace $color_01 $color_01    $color_03
-    urgent_workspace   $color_01 $color_01    $color_08
-  }
-}
 
